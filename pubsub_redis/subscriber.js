@@ -1,6 +1,11 @@
-var redis = require("redis");
-var subscriber = redis.createClient();
-subscriber.on("message", function (channel, message) {
-  console.log(message);
-});
-subscriber.subscribe("test");
+var redis = require('redis');
+
+const main = async () => {
+  const subscriber = redis.createClient();
+  await subscriber.connect();
+
+  const channel = 'test';
+  await subscriber.subscribe(channel, (msg) => console.log(msg));
+};
+
+main();
